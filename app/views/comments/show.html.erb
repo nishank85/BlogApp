@@ -1,0 +1,10 @@
+<p id="notice"></p>
+<p>
+  <b>Your Name :</b>
+  <%= @comment.name %>
+</p>
+<p>
+  <b>Comment :</b>
+  <%= @comment.body %>
+</p>
+<%= link_to 'Back', posts_path(@commentable) %>

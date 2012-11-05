@@ -1,0 +1,75 @@
+<h1 class='User_Header'><center>Blog Posts</center></h1>
+<div class = "notice">
+  <%= flash[:notice] %>
+</div>
+<div class = "search">
+  <span class ="search"> 
+    <%= form_tag(posts_path, :method => :get) do %>
+    <%= text_field_tag (:search), params[:search] %>
+    <%= submit_tag 'Search' %>
+      <% if @posts.empty? %>
+  </br>
+</br>
+<p>
+  No Post Matches to search criteria, 
+</p>
+<p>
+  Please try using different Keywords
+</p>
+      <% end %>
+    <% end %>
+  </span>
+</div>
+<br/>
+</br>
+<table>
+<% @posts.each do |post| %>
+  <tr>
+    <td>
+      <b>
+        <strong>
+          <u>
+            <h2>
+              <%= link_to post.title, post_path(post) %>
+            </h2>
+          </u>
+        </strong>
+      </b>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <%= truncate(post.body, :length => 250) %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <b>
+        <small>
+          <span class="timestamp">
+            Posted <%= time_ago_in_words(post.created_at) %> ago.
+          </span>
+          <span class ="author">
+            &nbsp;by -&nbsp;<%= post.user.username %>
+          </span>
+        </small>
+      </b>
+    </br>
+  </br>
+</br>
+<% if post.user == user_def  %>
+  <%= link_to 'Edit this Post', edit_post_path(post) %>      
+  | <%= link_to 'Delete this Post', post, method: :delete, 
+  data: { confirm: 'Are you sure, you want to delete this Post ?' } %>
+</td>
+<% end %>
+</tr>
+<% end %>
+</table>
+<%= will_paginate @posts %>
+</br>
+</br>
+<% if user_def %>
+  <%= link_to 'Create a new Post', new_post_path %>
+</br>
+<% end %>

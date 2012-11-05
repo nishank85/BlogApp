@@ -1,0 +1,40 @@
+<% @page_title = "UserAuth | Signup" -%>
+<div class= "Sign_Form">
+  <h1>Sign Up</h1>
+  <%= form_for(:user, :url => {:controller => 'users', :action => 'create'}) do |f| %>
+    <p>    
+      <br/>      
+      Username:</br> <%= f.text_field :username%> 
+       <% if @user.errors.any? %>
+        <span style='color:red; font-size:small'>
+    <%=  @user.errors.messages[:username].map { |i| "* Username " + i.to_s }.join(" , ") %>
+        </span>
+      <% end %>      
+      </br>    
+		</p>
+    <p>
+     </br>
+      Email:</br> <%= f.text_field :email%>
+       <% if @user.errors.any? %>
+        <span style='color:red; font-size:small'>
+        <%=  @user.errors.messages[:email].map { |i| "* Email " + i.to_s }.join(" , ") %>
+        </span>
+      <% end %>
+      </br>    
+		</p>
+    <p>
+      </br> 
+      Password:</br> <%= f.password_field :password%>
+      <% if @user.errors.any? %>
+        <span style='color:red; font-size:small'>
+    <%=  @user.errors.messages[:password].map { |i| "* Password " + i.to_s }.join(" , ") %>
+        </span>
+      <% end %>
+      </br>
+		</p>
+    <p>     
+      Password Confirmation:</br> <%= f.password_field :password_confirmation%>
+    </p>
+  </br>
+    <%= f.submit :Signup %>
+  <% end %>
