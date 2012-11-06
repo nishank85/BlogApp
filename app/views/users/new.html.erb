@@ -1,38 +1,60 @@
 <% @page_title = "UserAuth | Signup" -%>
 <div class= "Sign_Form">
   <h1>Sign Up</h1>
-  <%= form_for(:user, :url => {:controller => 'users', :action => 'create'}) do |f| %>
-    <p>    
-      <br/>      
-      Username:</br> <%= f.text_field :username%> 
+<%=form_for(:user,:url=>{:controller=>'users',:action=>'create'}) do |f|%>
+  <p>    
+    <br/>      
+      Username:</br> <%= f.text_field :username %>
+      <% if @user.username.blank? %>
+     </br>
+        <span style='color:red; font-size:small'>
+        * Username can't be blank
+        </span>
+      <% elsif @user.username.present? %>
        <% if @user.errors.any? %>
         <span style='color:red; font-size:small'>
-    <%=  @user.errors.messages[:username].map { |i| "* Username " + i.to_s }.join(" , ") %>
+  <%=@user.errors.messages[:username].map{|i| "* Username "+i.to_s}.join(" , ")%>
         </span>
-      <% end %>      
+        <% end %>
+       <% end %>      
       </br>    
 		</p>
     <p>
      </br>
-      Email:</br> <%= f.text_field :email%>
+      Email:</br> <%= f.text_field :email %>
+     <% if @user.email.blank? %>
+     </br>
+      <span style='color:red; font-size:small'>
+        * Email can't be blank
+      </span>
+      <% elsif @user.email.present? %>
        <% if @user.errors.any? %>
         <span style='color:red; font-size:small'>
-        <%=  @user.errors.messages[:email].map { |i| "* Email " + i.to_s }.join(" , ") %>
+  <%=@user.errors.messages[:email].map{|i| "* Email "+i.to_s}.join(" , ")%>
         </span>
+       <% end %>
       <% end %>
       </br>    
 		</p>
     <p>
-      </br> 
-      Password:</br> <%= f.password_field :password%>
+    </br>
+      Password:</br> <%= f.password_field :password %>
+      <% if @user.password.blank? %>
+      </br>
+      <span style='color:red; font-size:small'>
+        * Password can't be blank
+      </span>
+    <% elsif @user.password.present? %>
       <% if @user.errors.any? %>
         <span style='color:red; font-size:small'>
-    <%=  @user.errors.messages[:password].map { |i| "* Password " + i.to_s }.join(" , ") %>
+  <%=@user.errors.messages[:password].map{|i| "* Password "+i.to_s}.join(" , ")%>
         </span>
       <% end %>
+    <% end %>
       </br>
 		</p>
-    <p>     
+    <p>
+    </br>     
       Password Confirmation:</br> <%= f.password_field :password_confirmation%>
     </p>
   </br>

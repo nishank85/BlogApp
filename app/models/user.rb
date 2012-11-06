@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   
   validates :username, :presence => true, :uniqueness => true, :length => {:in => 3..30}
   validates :email, :presence => true, :uniqueness => true, :format => EMAIL_REGEX
-  validates :password,:presence => true, :confirmation => true
+  validates :password, :presence => true, :confirmation => true
   validates_length_of :password, :in => 6..20, :on => :create
   
   attr_accessible :username, :email, :password, :password_confirmation, :photo
@@ -52,5 +52,13 @@ class User < ActiveRecord::Base
   def clear_password
     self.password = nil
     self.salt = nil
+  end
+
+  def error_check
+  validate do |user|
+    user.errors.add_to_base("Username can't be blank") if user.username.blank?
+    user.errors.add_to_base("Email can't be blank") if user.email.blank?
+    user.errors.add_to_base("Password can't be blank") if user.password.blank?
+  end
   end
 end
