@@ -1,4 +1,4 @@
-UserAuth::Application.routes.draw do
+BlogApp::Application.routes.draw do
   resources :posts do
     member do
       get 'like'
