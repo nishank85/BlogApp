@@ -1,6 +1,6 @@
 Getting Started
 
-Fork the Project
+Clone the Project
 
 bundle install
 
